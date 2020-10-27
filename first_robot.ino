@@ -3,18 +3,18 @@
 #include <AFMotor.h>
 
 //Objects
-AF_DCMotor motorRight(1, MOTOR12_64KHZ); // create motor #1, 64KHz pwm
-AF_DCMotor motorLeft(3, MOTOR12_64KHZ);  // create motor #3, 64KHz pwm
+AF_DCMotor motorRight(1, MOTOR12_64KHZ); 
+AF_DCMotor motorLeft(3, MOTOR12_64KHZ);  
 
 //Constants and variable
 char dataIn = 'S';
 char determinant;
 char det;
-int vel = 0; //Bluetooth Stuff
+int vel = 0; 
 
 
 void setup() {
-  Serial.begin(9600); // set up Serial library at 9600 bps
+  Serial.begin(9600); 
   
   //Initalization messages
   Serial.println("ArduinoBymyself - ROVERBot");
@@ -31,11 +31,12 @@ void setup() {
 }
 
 void loop() {
-  det = check(); //call check() subrotine to get the serial code
+  det = check(); 
   
-  //serial code analysis
+  
   switch (det){
-    case 'F': // F, move forward
+    case 'F': 
+      
     motorRight.setSpeed(vel);
     motorLeft.setSpeed(vel);
     motorRight.run(FORWARD);      
@@ -43,7 +44,7 @@ void loop() {
     det = check();
     break;
     
-    case 'B': // B, move back
+    case 'B': 
     motorRight.setSpeed(vel);
     motorLeft.setSpeed(vel);
     motorRight.run(BACKWARD);      
@@ -51,7 +52,7 @@ void loop() {
     det = check();
     break;
     
-    case 'L':// L, move wheels left
+    case 'L':
     motorRight.setSpeed(vel);
     motorLeft.setSpeed(vel/4);
     motorRight.run(FORWARD);      
@@ -59,7 +60,7 @@ void loop() {
     det = check();
     break;
     
-    case 'R': // R, move wheels right
+    case 'R': 
     motorRight.setSpeed(vel/4);
     motorLeft.setSpeed(vel);
     motorRight.run(FORWARD);      
@@ -114,8 +115,8 @@ void loop() {
 
 //get bluetooth code received from serial port
 int check(){
-  if (Serial.available() > 0){// if there is valid data in the serial port
-    dataIn = Serial.read();// stores data into a varialbe
+  if (Serial.available() > 0){
+    dataIn = Serial.read();
     
     //check the code
     if (dataIn == 'F'){//Forward
@@ -166,37 +167,37 @@ int check(){
     else if (dataIn == '6'){//Speed 150
       vel = 150;
     }
-    else if (dataIn == '7'){//Speed 175
+    else if (dataIn == '7'){
       vel = 175;
     }
-    else if (dataIn == '8'){//Speed 200
+    else if (dataIn == '8'){
       vel = 200;
     }
-    else if (dataIn == '9'){//Speed 225
+    else if (dataIn == '9'){
       vel = 225;
     }
-    else if (dataIn == 'q'){//Speed 255
+    else if (dataIn == 'q'){
       vel = 255;
     }
-    else if (dataIn == 'U'){//Back Lights On
+    else if (dataIn == 'U'){
       determinant = 'U';
     }
-    else if (dataIn == 'u'){//Back Lights Off
+    else if (dataIn == 'u'){
       determinant = 'u';
     }
-    else if (dataIn == 'W'){//Front Lights On
+    else if (dataIn == 'W'){
       determinant = 'W';
     }
-    else if (dataIn == 'w'){//Front Lights Off
+    else if (dataIn == 'w'){
       determinant = 'w';
     }
-    else if (dataIn == 'V'){//Horn On
+    else if (dataIn == 'V'){
       determinant = 'V';
     }
-    else if (dataIn == 'v'){//Horn Off
+    else if (dataIn == 'v'){
       determinant = 'v';
     }
-    else if (dataIn == 'X'){//Extra On
+    else if (dataIn == 'X'){
       determinant = 'X';
     }
     else if (dataIn == 'x'){//Extra Off
